@@ -2,8 +2,8 @@ const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const { connectDB } = require('./config/connDB');
-const reelsRouter = require('./routes/reelsRoutes');
-const { authMiddleware } = require('./middleware/authMiddleware'); // نفس اللي عندك في باقي السيرفرات
+const reelsRouter = require('./router/reelsRoutes');
+const { checkReq } = require('./middleware/authMiddleware'); 
 
 const app = express();
 
@@ -15,7 +15,7 @@ app.use(cors());
 connectDB();
 
 // Auth middleware (يتحقق من التوكن)
-app.use(authMiddleware);
+app.use(checkReq);
 
 // Routes
 app.use('/reels', reelsRouter);

@@ -2,8 +2,8 @@ const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const { connectDB } = require('./config/connDB');
-const postsRouter = require('./routes/postsRoutes');
-const { authMiddleware } = require('./middleware/authMiddleware'); // لو عاملين Auth زي باقي السيرفرات
+const postsRouter = require('./router/postsRoutes');
+const { checkReq } = require('./middleware/authMiddleware'); // لو عاملين Auth زي باقي السيرفرات
 
 const app = express();
 
@@ -15,7 +15,7 @@ app.use(cors());
 connectDB();
 
 // Use auth middleware (لو عايزه تتحقق من اليوزر)
-app.use(authMiddleware);
+app.use(checkReq);
 
 // Routes
 app.use('/posts', postsRouter);

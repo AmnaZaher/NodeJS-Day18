@@ -3,7 +3,7 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const { connectDB } = require('./config/connDB');
 const groupsRouter = require('./router/groupRouter');
-const {authMiddleware} = require('./middleware/authMiddleware')
+const {checkReq} = require('./middleware/authMiddleware')
 
 const app = express();
 app.use(express.json());
@@ -15,7 +15,7 @@ connectDB();
 
 
 
-app.use(authMiddleware)
+app.use(checkReq)
 app.use('/groups', groupsRouter)
 
 

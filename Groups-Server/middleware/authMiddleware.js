@@ -1,17 +1,13 @@
-const jwt = require('jsonwebtoken');
-
-const authMiddleware = (req, res, next) => {
-    const token = req.headers['authorization'];
-    if (!token) {
-        return res.status(401).json({ message: 'No token provided' });
+const checkReq = (req, res, next) => {
+    const {username , password} = req.headers;
+    if(!username || !password){
+        return res.status(400).json({message: "unauthorized"});
     }
-    try {
-        const decoded = jwt.verify(token, process.env.JWT_SECRET);
-        req.session = { userId: decoded.id, username: decoded.username };
-        next();
-    } catch (error) {
-        return res.status(401).json({ message: 'Invalid token' });
+    if (username !== process.env.USERNAME_SERVER || password !== process.env.PASSWORD_SERVER) {
+        return res.status(400).json({ message: "unauthorized" });
     }
-};
+    next();
+}
 
-module.exports = authMiddleware;
+
+module.exports = {checkReq}

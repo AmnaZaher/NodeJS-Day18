@@ -1,4 +1,14 @@
-PORT = 5000
-SESSION_SECRET="swoihswiudhiwuhi253u2#%32js9uu36tswdkeokd"
-USERNAME_SERVER="auth-server-123"
-PASSWORD_SERVER="auth-server-456"
+const mongoose = require('mongoose');
+const path = require('path')
+require('dotenv').config({path : path.join(__dirname, "../.env")})
+const connectDB = async() =>{
+    try {
+        await mongoose.connect(process.env.MONGO_URI)
+    }
+    catch (error) {
+        console.log(error)
+    }
+    
+}
+
+module.exports = {connectDB}
