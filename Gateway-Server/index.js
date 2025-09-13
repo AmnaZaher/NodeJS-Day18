@@ -4,8 +4,9 @@ require('dotenv').config()
 const cors = require('cors');
 const authRouter = require('./router/authRouter');
 const groupRouter = require('./router/groupRouter');
-
-
+const postsRouter = require('./router/postsRoutes');
+const reelsRouter = require('./router/reelsRoutes');
+const groupsRouter = require('./router/groupRouter');
 
 const app = express();
 app.use(express.json());
@@ -22,8 +23,11 @@ app.use(session({
     }
 }))
 
-app.use('/auth', authRouter)
-app.use('/groups', groupRouter)
+app.use('/auth', authRouter);
+app.use('/groups', groupRouter);
+app.use('/posts', postsRouter);
+app.use('/reels', reelsRouter);
+app.use('/groups', groupsRouter);
 
 
 app.listen(process.env.PORT, () => {

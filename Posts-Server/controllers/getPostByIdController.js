@@ -1,9 +1,9 @@
-const {post} = require('../models/Post');
+const {Post} = require('../models/Post');
 
 const getPostByIdController = async (req, res) => {
     try {
         const {id} = req.params;
-        const foundPost = await post.findById(id);
+        const foundPost = await Post.findById(id);
         if (!foundPost) {
             return res.status(404).json({message: 'Post not found'});
         }
