@@ -1,0 +1,12 @@
+const {Post} = require('../models/Post');
+
+const getAllPostsController = async (req, res) => {
+    try {
+        const posts = await Post.find().sort({createdAt: -1});
+        res.status(200).json(posts);
+    } catch (error) {
+        res.status(500).json({message: 'Server Error', error: error.message});
+    }
+};
+
+module.exports = {getAllPostsController};
